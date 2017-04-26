@@ -88,7 +88,9 @@ namespace AmazonInterview
       Random rnd = new Random();
       
       int k = 2500;
+      int n = 100000000;
       Console.WriteLine("K = {0}", k);
+      Console.WriteLine("Comparing *Submitted | PriorityQueue* in ms.");
       
       // For performance testing, run 10 times.
       for (int runs = 0; runs < 10; runs++)
@@ -96,7 +98,7 @@ namespace AmazonInterview
         List<Point> points = new List<Point>();
         
         // Add 100 million random points.
-        for (int i = 0; i  <100000000; i++) 
+        for (int i = 0; i  < n; i++) 
         {
           // Limited points' range to ([-100, 100], [-100, 100]) because it doesn't finish the first loop otherwise.
           // Possibly Point.DistanceToOrigin() is encountering MAX_INT when squaring and adding the values?
@@ -114,10 +116,11 @@ namespace AmazonInterview
         stop = Process.GetCurrentProcess().TotalProcessorTime;
         var pq_time = (stop - start).TotalMilliseconds;
         
-        Console.WriteLine("Original Set contains {0} elements...", points.Count);
-        
-        Console.WriteLine("Submitted Result Set contains {0} elements [{1:0.0000} ms]...", submitted_results.Count, submitted_time);
-        Console.WriteLine("Pri Queue Result Set contains {0} elements [{1:0.0000} ms]...", pq_results.Count, pq_time);
+        Console.WriteLine("{0:0.0000} ms | {1:0.0000} ms ({2:0.0000} ms {3}", 
+                                    submitted_time,
+                                    pq_time,
+                                    Math.Abs(pq_time - submitted_time),
+                                    (pq_time < submitted_time) ? "faster" : "slower");
       }
     }
   }
