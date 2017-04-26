@@ -38,3 +38,10 @@ Comparison using <code>Process.GetCurrentProcess().TotalProcessorTime</code> whe
 | 11434.8733 ms | 11294.4724 ms  | 140.4009 ms faster  |
 | 12386.4794 ms | 11824.8758 ms  | 561.6036 ms faster  |
 | 11980.8768 ms | 12168.0780 ms  | 187.2012 ms slower  |
+
+Edit: Java and C# use different default sorting algorithms. Java uses a modified mergesort, while C# can use any one of three different algorithms based on the size of n:
+
+(From [MSDN:](https://msdn.microsoft.com/en-us/library/6tf1f0bc(v=vs.110).aspx#Anchor_2))
+> 1) If the partition size is fewer than 16 elements, it uses an insertion sort algorithm.
+> 2) If the number of partitions exceeds 2 * LogN, where N is the range of the input array, it uses a Heapsort algorithm.
+> 3) Otherwise, it uses a Quicksort algorithm.
